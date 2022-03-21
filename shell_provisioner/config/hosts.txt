@@ -1,0 +1,6 @@
+# Add a line to your hosts file.
+# This must match the values for GUEST_IP and APP_DOMAIN set in run.sh
+192.168.33.211 elastic-synonym-demo.dev.intracto.com
+192.168.33.211 phpmyadmin.elastic-synonym-demo.dev.intracto.com
+192.168.33.211 mails.elastic-synonym-demo.dev.intracto.com
+192.168.33.211 ssr.elastic-synonym-demo.dev.intracto.com

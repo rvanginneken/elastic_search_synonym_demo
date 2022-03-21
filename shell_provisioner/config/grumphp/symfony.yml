@@ -1,0 +1,57 @@
+grumphp:
+    environment:
+        paths:
+            - /vagrant/htdocs/bin
+    ascii:
+        failed: ~
+        succeeded: ~
+    hooks_preset: vagrant
+    git_hook_variables:
+        VAGRANT_HOST_DIR: .
+        VAGRANT_PROJECT_DIR: /vagrant
+        EXEC_GRUMPHP_COMMAND: exec
+    tasks:
+        composer:
+            file: ./htdocs/composer.json
+        file_size:
+            max_size: 10M
+        git_blacklist:
+            keywords:
+                - "exit;"
+                - "die\\("
+                - "var_dump\\("
+                - "print_r\\("
+                - "print\\("
+                - "dump\\("
+                - "debug_backtrace\\("
+                - "console.log\\("
+                - "echo "
+            triggered_by:
+                - php
+                - twig
+                - js
+        phpcs:
+            standard:
+                - ./htdocs/vendor/escapestudios/symfony2-coding-standard/Symfony
+            ignore_patterns:
+                - "docs/"
+        phpcsfixer2:
+            allow_risky: true
+            verbose: true
+            config: ./.php-cs-fixer.php
+        phpstan:
+            autoload_file: ./htdocs/vendor/autoload.php
+        securitychecker_local:
+            lockfile: ./htdocs/composer.lock
+            run_always: false
+        yamllint: ~
+        jsonlint:
+            detect_key_conflicts: true
+        xmllint: ~
+        git_commit_message:
+            matchers:
+                - /JIRACODE-([0-9]*)/
+            case_insensitive: false
+        phpcpd:
+            directory: [./htdocs/]
+            exclude: [htdocs/vendor, htdocs/var/cache]
